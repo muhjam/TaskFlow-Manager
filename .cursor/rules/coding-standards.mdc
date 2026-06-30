@@ -1,0 +1,31 @@
+---
+description: General coding standards and project architecture
+globs: **/*.{ts,tsx}
+alwaysApply: true
+---
+
+# Coding Standards & Architecture
+
+Ikuti standar coding dan arsitektur berikut untuk menjaga konsistensi dan kualitas kode.
+
+## 1. Struktur Folder & Penamaan
+- Gunakan **kebab-case** untuk nama folder.
+- Setiap folder komponen/fitur harus memiliki file `index.tsx` (untuk komponen) atau `index.ts` (untuk logika).
+- Contoh: `src/components/button/index.tsx`.
+
+## 2. Arsitektur State Management
+- **Server State**: Gunakan **React Query** (`@tanstack/react-query`). Bungkus semua query/mutasi dalam Custom Hooks di folder `hooks/` atau feature-specific `hooks/`.
+- **Client State**: Gunakan **Zustand** untuk state global UI/Client. Jangan gunakan Context API kecuali sangat diperlukan.
+
+## 3. Manajemen API
+- Deklarasikan semua fungsi pemanggilan API di folder `src/api/` atau `src/features/*/services/`.
+- Gunakan instance Axios terpusat dengan interceptors untuk menangani auth dan error secara global.
+
+## 4. Kualitas Kode
+- Batasi ukuran file maksimal **800 baris**.
+- Prioritaskan modularitas dan penggunaan kembali kode (reusable components/hooks).
+- Gunakan **Memoization** (`useCallback`, `useMemo`, `React.memo`) secara bijak sesuai kebutuhan performa.
+
+## 5. Validasi & Type Safety
+- Gunakan **TypeScript** untuk semua file logic dan komponen.
+- Gunakan **React Hook Form** + **Zod** untuk validasi form.

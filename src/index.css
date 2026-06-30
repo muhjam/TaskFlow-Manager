@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors from DESIGN.md and code.html */
+  --color-on-secondary-container: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-primary-fixed: #001a42;
+  --color-on-error: #ffffff;
+  --color-on-tertiary-fixed: #311400;
+  --color-error: #ba1a1a;
+  --color-surface-dim: #d4d4d4;
+  --color-outline: #737373;
+  --color-surface: #ffffff;
+  --color-inverse-on-surface: #f5f5f5;
+  --color-on-primary: #ffffff;
+  --color-background: #ffffff;
+  --color-on-tertiary-fixed-variant: #723600;
+  --color-primary-fixed: #e5e5e5;
+  --color-secondary: #4648d4;
+  --color-on-tertiary-container: #ffffff;
+  --color-error-container: #fee2e2;
+  --color-surface-variant: #f5f5f5;
+  --color-primary-fixed-dim: #d4d4d4;
+  --color-tertiary-container: #b75b00;
+  --color-on-background: #171717;
+  --color-surface-container-low: #fcfcfc;
+  --color-secondary-fixed-dim: #c0c1ff;
+  --color-on-primary-container: #ffffff;
+  --color-inverse-surface: #262626;
+  --color-tertiary: #924700;
+  --color-on-surface-variant: #525252;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-error-container: #991b1b;
+  --color-secondary-fixed: #e1e0ff;
+  --color-on-secondary-fixed: #07006c;
+  --color-surface-container-high: #f5f5f5;
+  --color-inverse-primary: #adc6ff;
+  --color-primary-container: #2170e4;
+  --color-surface-tint: #005ac2;
+  --color-on-primary-fixed-variant: #004395;
+  --color-on-secondary-fixed-variant: #2f2ebe;
+  --color-primary: #0058be;
+  --color-surface-container: #f2f2f2;
+  --color-tertiary-fixed: #ffdcc6;
+  --color-surface-bright: #ffffff;
+  --color-on-surface: #171717;
+  --color-outline-variant: #e5e5e5;
+  --color-surface-container-highest: #e5e5e5;
+  --color-tertiary-fixed-dim: #ffb786;
+  --color-secondary-container: #6063ee;
+  --color-on-tertiary: #ffffff;
+
+  /* Typography */
+  --font-sans: "Inter", sans-serif;
+
+  /* Spacing */
+  --spacing-ds-xxl: 48px;
+  --spacing-ds-xl: 32px;
+  --spacing-ds-lg: 20px;
+  --spacing-ds-md: 14px;
+  --spacing-ds-sm: 10px;
+  --spacing-ds-xs: 6px;
+  --spacing-ds-base: 4px;
+  --spacing-ds-gutter: 12px;
+  --spacing-ds-container: 24px;
+
+  /* Radius */
+  --radius-ds-xl: 1rem;
+  --radius-ds-lg: 0.75rem;
+  --radius-ds-md: 0.5rem;
+
+  /* Shadows */
+  --shadow-level1: 0 4px 12px rgba(17, 24, 39, 0.05);
+  --shadow-level2: 0 12px 24px rgba(17, 24, 39, 0.1);
+}
+
+.dark {
+  --color-background: #0f111a;
+  --color-surface: #0f111a;
+  --color-on-surface: #f1f3ff;
+  --color-on-background: #f1f3ff;
+  --color-surface-container: #1a1d29;
+  --color-surface-container-low: #141721;
+  --color-surface-container-lowest: #1e2230;
+  --color-on-surface-variant: #a1a5b8;
+  --color-outline-variant: #32384a;
+  --color-primary: #4d9dff;
+  --color-primary-container: #004395;
+  --color-on-primary-container: #d8e2ff;
+  --color-secondary: #8c8eff;
+  --color-secondary-container: #2f2ebe;
+  --color-on-secondary-container: #e1e0ff;
+  --shadow-level1: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-level2: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-sans antialiased transition-colors duration-300;
+  }
+}
+
+/* Custom Utilities for Design System */
+@utility text-display-lg {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+@utility text-headline-md {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@utility text-headline-sm {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+@utility text-body-lg {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+@utility text-body-md {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@utility text-label-md {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+@utility text-headline-md-mobile {
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.kanban-scroll::-webkit-scrollbar { display: none; }
+.kanban-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Custom DatePicker Styling */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker {
+  font-family: 'Inter', sans-serif !important;
+  border: 1px solid var(--color-outline-variant) !important;
+  border-radius: var(--radius-ds-lg) !important;
+  background-color: var(--color-surface-container-lowest) !important;
+  color: var(--color-on-surface) !important;
+  box-shadow: var(--shadow-level2) !important;
+  overflow: hidden;
+}
+
+.react-datepicker__header {
+  background-color: var(--color-surface-container-low) !important;
+  border-bottom: 1px solid var(--color-outline-variant) !important;
+  padding-top: 12px !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day {
+  color: var(--color-on-surface) !important;
+}
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--in-selecting-range, 
+.react-datepicker__day--in-range {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day:hover {
+  border-radius: 50% !important;
+  background-color: var(--color-surface-container) !important;
+}
+
+.react-datepicker__day--disabled {
+  color: var(--color-on-surface-variant) !important;
+  opacity: 0.3;
+}

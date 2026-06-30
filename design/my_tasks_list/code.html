@@ -1,0 +1,293 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Todo Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#fffbff",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed": "#001a42",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#311400",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d3daef",
+                      "outline": "#727785",
+                      "surface": "#f9f9ff",
+                      "inverse-on-surface": "#edf0ff",
+                      "on-primary": "#ffffff",
+                      "background": "#f9f9ff",
+                      "on-tertiary-fixed-variant": "#723600",
+                      "primary-fixed": "#d8e2ff",
+                      "secondary": "#4648d4",
+                      "on-tertiary-container": "#fffbff",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#dce2f7",
+                      "primary-fixed-dim": "#adc6ff",
+                      "tertiary-container": "#b75b00",
+                      "on-background": "#141b2b",
+                      "surface-container-low": "#f1f3ff",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "on-primary-container": "#fefcff",
+                      "inverse-surface": "#293040",
+                      "tertiary": "#924700",
+                      "on-surface-variant": "#424754",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#e1e0ff",
+                      "on-secondary-fixed": "#07006c",
+                      "surface-container-high": "#e1e8fd",
+                      "inverse-primary": "#adc6ff",
+                      "primary-container": "#2170e4",
+                      "surface-tint": "#005ac2",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "primary": "#0058be",
+                      "surface-container": "#e9edff",
+                      "tertiary-fixed": "#ffdcc6",
+                      "surface-bright": "#f9f9ff",
+                      "on-surface": "#141b2b",
+                      "outline-variant": "#c2c6d6",
+                      "surface-container-highest": "#dce2f7",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "secondary-container": "#6063ee",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "gutter": "12px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "container-margin": "20px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-md-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .task-checkbox:checked + span {
+            text-decoration: line-through;
+            color: #727785;
+            transition: all 0.2s ease;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-container-margin py-md w-full sticky top-0 z-50 bg-surface dark:bg-background">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary font-headline-md-mobile text-headline-md-mobile" data-icon="check_circle">check_circle</span>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary font-extrabold tracking-tight">Todo</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-2 rounded-full hover:bg-surface-container-low transition-colors text-on-surface-variant" data-icon="search">search</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional and clean studio portrait of a young executive with a friendly expression. The lighting is soft and natural, against a minimalist light gray background. The aesthetic is modern and high-end, perfectly suited for a productivity application's user profile, maintaining a clear and organized visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD32wXWKzC8WcUIWxmc1ceBug17RHO2uk60ISak3oKzchQf-1-hTRiCAWIpgyFyse-5Eo90Xih0d22FJaBBDE4G2MeOgCkeTQUM5v53jNsUjaatwnBDIlSnrn6bVLYCTStIDlwh3KUIuPwJTYMfzNgNtSKnYF8CzPmtpCyHSlGTrZoE9tEOt2a0_qwyXgB75_sdP5-ByGyMPUFoGGKWJcKi3w3l5aSxqYdc9PDRH6gFsFJCsIK0K3NG_GW_l5Edi8fz5CRGw8dgwKfN">
+</div>
+</div>
+</header>
+<main class="px-container-margin mt-lg max-w-4xl mx-auto">
+<!-- View Toggle Tab -->
+<div class="flex items-center justify-between mb-lg">
+<div class="inline-flex p-1 bg-surface-container rounded-xl">
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md bg-surface text-primary shadow-sm transition-all duration-200" id="listViewBtn">
+                    List
+                </button>
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-200" id="kanbanViewBtn">
+                    Kanban
+                </button>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="font-label-md text-label-md">Sort by: Due Date</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+<!-- List View Section -->
+<section class="space-y-md" id="listView">
+<!-- Header for List Section -->
+<div class="flex items-center justify-between py-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Active Tasks</h2>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">4 Tasks</span>
+</div>
+<!-- Task List Items -->
+<div class="space-y-md">
+<!-- Task 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_4px_rgba(17,24,39,0.05)] border border-transparent hover:border-primary-fixed transition-all group flex items-start gap-md">
+<div class="pt-1">
+<input class="task-checkbox w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all cursor-pointer" type="checkbox">
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-body-lg text-body-lg text-on-surface font-medium truncate">Quarterly Financial Review</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 line-clamp-1">Review the balance sheet and P&amp;L statements for Q3.</p>
+<div class="flex flex-wrap gap-sm mt-md">
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded-lg font-bold">High</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded-lg font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="event">event</span>
+                                Oct 24
+                            </span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-2 py-0.5 rounded-lg font-medium">Finance</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-outline transition-opacity" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Task 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_4px_rgba(17,24,39,0.05)] border border-transparent hover:border-primary-fixed transition-all group flex items-start gap-md">
+<div class="pt-1">
+<input class="task-checkbox w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all cursor-pointer" type="checkbox">
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-body-lg text-body-lg text-on-surface font-medium truncate">Update Design System Tokens</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 line-clamp-1">Sync the new Tailwind configuration with the Figma variables.</p>
+<div class="flex flex-wrap gap-sm mt-md">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded-lg font-medium">Medium</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded-lg font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="event">event</span>
+                                Tomorrow
+                            </span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-2 py-0.5 rounded-lg font-medium">Design</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-outline transition-opacity" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Task 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_4px_rgba(17,24,39,0.05)] border border-transparent hover:border-primary-fixed transition-all group flex items-start gap-md">
+<div class="pt-1">
+<input class="task-checkbox w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary transition-all cursor-pointer" type="checkbox">
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-body-lg text-body-lg text-on-surface font-medium truncate">Client Meeting Prep</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 line-clamp-1">Create slides for the project kickoff meeting on Monday.</p>
+<div class="flex flex-wrap gap-sm mt-md">
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded-lg font-bold">High</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded-lg font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="event">event</span>
+                                Oct 27
+                            </span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-outline transition-opacity" data-icon="more_vert">more_vert</button>
+</div>
+<!-- Task 4 (Completed) -->
+<div class="bg-surface-container p-md rounded-xl opacity-60 flex items-start gap-md">
+<div class="pt-1">
+<input checked="" class="task-checkbox w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox">
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-body-lg text-body-lg text-on-surface line-through font-medium truncate">Weekly Team Sync</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 line-through line-clamp-1">Alignment on deliverables for the sprint.</p>
+</div>
+<button class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+</section>
+<!-- Empty State Placeholder (Hidden for now) -->
+<div class="hidden flex-col items-center justify-center py-24 text-center" id="emptyState">
+<span class="material-symbols-outlined text-[64px] text-outline-variant mb-md" data-icon="inbox">inbox</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">No tasks found</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">You're all caught up! Enjoy your calm workspace.</p>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-2xl shadow-xl flex items-center justify-center active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+
+<!-- Interaction Script -->
+<script>
+        const listViewBtn = document.getElementById('listViewBtn');
+        const kanbanViewBtn = document.getElementById('kanbanViewBtn');
+        const listView = document.getElementById('listView');
+
+        kanbanViewBtn.addEventListener('click', () => {
+            kanbanViewBtn.classList.add('bg-surface', 'text-primary', 'shadow-sm');
+            kanbanViewBtn.classList.remove('text-on-surface-variant');
+            listViewBtn.classList.remove('bg-surface', 'text-primary', 'shadow-sm');
+            listViewBtn.classList.add('text-on-surface-variant');
+            
+            // For demo, we just fade the list view since Kanban implementation wasn't fully requested but the toggle was
+            listView.style.opacity = '0.5';
+            listView.style.pointerEvents = 'none';
+        });
+
+        listViewBtn.addEventListener('click', () => {
+            listViewBtn.classList.add('bg-surface', 'text-primary', 'shadow-sm');
+            listViewBtn.classList.remove('text-on-surface-variant');
+            kanbanViewBtn.classList.remove('bg-surface', 'text-primary', 'shadow-sm');
+            kanbanViewBtn.classList.add('text-on-surface-variant');
+            
+            listView.style.opacity = '1';
+            listView.style.pointerEvents = 'auto';
+        });
+
+        // Toggle checkbox state effect
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.bg-surface-container-lowest, .bg-surface-container');
+                const textContainer = this.nextElementSibling;
+                if (this.checked) {
+                    parent.classList.add('opacity-60');
+                    parent.classList.remove('bg-surface-container-lowest');
+                    parent.classList.add('bg-surface-container');
+                } else {
+                    parent.classList.remove('opacity-60');
+                    parent.classList.add('bg-surface-container-lowest');
+                    parent.classList.remove('bg-surface-container');
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

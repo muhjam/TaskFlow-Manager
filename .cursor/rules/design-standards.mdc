@@ -1,0 +1,29 @@
+---
+description: Enforce design standards from the design/ folder
+globs: **/*.{tsx,ts,css,scss}
+alwaysApply: true
+---
+
+# Design Standards
+
+Semua implementasi UI harus mengacu pada desain yang ada di folder `design/`.
+
+## Pedoman Utama
+- **Tema Warna**: Gunakan palet warna **Productive Serenity** yang didefinisikan di `design/productive_serenity/DESIGN.md`.
+  - Primary: `#3B82F6`
+  - Surface: `#F9FAFB`
+  - On-Surface: `#111827`
+- **Tipografi**: Gunakan font **Inter**. Pastikan letter-spacing dan line-height sesuai dengan spesifikasi desain.
+- **Spacing**: Semua jarak (padding/margin) harus merupakan kelipatan **4px**.
+- **Komponen UI**:
+  - Gunakan border-radius `0.5rem` (8px) untuk tombol dan input.
+  - Gunakan border-radius `1rem` (16px) untuk card dan kanban board.
+  - Gunakan bayangan (shadow) yang lembut sesuai dengan level elevasi di desain.
+
+## Referensi Desain
+- Lihat `design/productive_serenity/DESIGN.md` untuk spesifikasi teknis (warna, tipografi, spacing).
+- Lihat screenshot di folder `design/login/`, `design/register/`, `design/my_tasks_list/`, dan `design/my_tasks_kanban/` untuk referensi visual layout.
+
+## Implementasi Tailwind
+- Konfigurasikan `tailwind.config.js` agar mencerminkan nilai-nilai dari sistem desain ini.
+- Gunakan utility classes yang konsisten dengan pedoman spacing dan roundedness.

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Productive Serenity - Add Task</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#4648d4",
+                    "surface-container-low": "#f1f3ff",
+                    "surface-container": "#e9edff",
+                    "on-primary-fixed-variant": "#004395",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#dce2f7",
+                    "inverse-primary": "#adc6ff",
+                    "primary-container": "#2170e4",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d3daef",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "surface-container-high": "#e1e8fd",
+                    "on-primary-container": "#fefcff",
+                    "on-primary-fixed": "#001a42",
+                    "inverse-on-surface": "#edf0ff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "surface-container-highest": "#dce2f7",
+                    "surface": "#f9f9ff",
+                    "background": "#f9f9ff",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-tertiary-container": "#fffbff",
+                    "on-background": "#141b2b",
+                    "surface-tint": "#005ac2",
+                    "on-secondary-fixed": "#07006c",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#424754",
+                    "on-error": "#ffffff",
+                    "tertiary": "#924700",
+                    "outline": "#727785",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#293040",
+                    "tertiary-container": "#b75b00",
+                    "on-surface": "#141b2b",
+                    "surface-bright": "#f9f9ff",
+                    "on-secondary-container": "#fffbff",
+                    "outline-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#0058be",
+                    "secondary-container": "#6063ee",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#311400",
+                    "primary-fixed-dim": "#adc6ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "gutter": "12px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md-mobile": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .modal-overlay {
+            background-color: rgba(20, 27, 43, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dce2f7; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-container-margin py-md w-full sticky top-0 z-40 bg-surface dark:bg-background">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary font-headline-md-mobile text-headline-md-mobile" data-icon="check_circle">check_circle</span>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary">Todo</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a smiling young creative professional, clean lighting, soft blue-tinted studio background, high resolution, minimalist aesthetic, matches the app's clean productivity theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsuAJpdhOuzjDIoeZTgkhlH1UDaZyBEJkLjOCmxcgjCNoxkhFMsDKQ1Ygv-OR1j90RYS31B2libqLNFAeNHzt8u9bCTGxKO5v7ISAmI-557Ut7hpBntr0Bwd2npWwoPOiIbWTN5U0wrCcsUCh2x2rqoFBiwzU2_aUp6QSojkqaOWDVM2Bfv-8_edrZCBydrW3y1mOjBotF-d6_eKojtBAMbBY9J_h5jVak58QlFcm-yUC_1veq4leOdO8zt1XAgX8VpC9wH1bi5cym"/>
+</div>
+</header>
+<!-- Main Content (Background Layout) -->
+<main class="flex-1 px-container-margin py-lg space-y-lg max-w-4xl mx-auto w-full">
+<section>
+<h2 class="font-headline-md text-headline-md mb-md">My Tasks</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_4px_rgba(17,24,39,0.05)] border border-surface-container flex items-start gap-md">
+<button class="mt-1 w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary transition-colors"></button>
+<div class="flex-1">
+<p class="font-body-lg text-body-lg text-on-surface">Finalize design tokens</p>
+<p class="font-label-md text-label-md text-on-surface-variant">2:00 PM • UI/UX</p>
+</div>
+<span class="bg-error-container text-on-error-container px-sm py-xs rounded-full font-label-md text-label-md">High</span>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_4px_rgba(17,24,39,0.05)] border border-surface-container flex items-start gap-md">
+<button class="mt-1 w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary transition-colors"></button>
+<div class="flex-1">
+<p class="font-body-lg text-body-lg text-on-surface">Weekly sync with team</p>
+<p class="font-label-md text-label-md text-on-surface-variant">4:30 PM • Management</p>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant px-sm py-xs rounded-full font-label-md text-label-md">Medium</span>
+</div>
+</div>
+</section>
+<!-- Asymmetric Bento Grid Section -->
+<section class="grid grid-cols-3 gap-md">
+<div class="col-span-2 bg-primary-container text-on-primary-container p-lg rounded-3xl relative overflow-hidden h-40 flex flex-col justify-end">
+<div class="absolute top-4 right-4 opacity-20">
+<span class="material-symbols-outlined text-[64px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Focus Mode</h3>
+<p class="font-body-md text-body-md opacity-90">3 tasks prioritized for today</p>
+</div>
+<div class="col-span-1 bg-surface-container p-lg rounded-3xl flex flex-col items-center justify-center text-center">
+<span class="font-display-lg text-display-lg text-primary">85%</span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Productivity</span>
+</div>
+</section>
+</main>
+<!-- Modal Overlay Backdrop -->
+<div class="fixed inset-0 z-50 modal-overlay flex flex-col justify-end md:justify-center items-center transition-opacity duration-300" id="modalOverlay">
+<!-- Modal Content (Bottom Sheet on Mobile, Centered Card on Desktop) -->
+<div class="w-full max-w-lg bg-surface-container-lowest md:rounded-3xl rounded-t-3xl shadow-2xl p-xl max-h-[795px] overflow-y-auto custom-scrollbar transition-transform duration-300 transform translate-y-0 relative border-t md:border border-surface-container">
+<!-- Handle for mobile -->
+<div class="w-12 h-1 bg-outline-variant rounded-full mx-auto mb-lg md:hidden"></div>
+<div class="flex justify-between items-start mb-xl">
+<h2 class="font-display-lg text-display-lg text-on-surface">Add New Task</h2>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-low transition-colors" onclick="toggleModal()">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</span>
+</button>
+</div>
+<form class="space-y-lg" onsubmit="event.preventDefault();">
+<!-- Task Name -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="task_name">Task Name</label>
+<input class="w-full px-md py-md rounded-xl bg-surface border border-outline-variant focus:border-primary focus:ring-0 transition-all font-body-lg placeholder:text-outline-variant" id="task_name" placeholder="What needs to be done?" required="" type="text"/>
+</div>
+<!-- Description -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="description">Description</label>
+<textarea class="w-full px-md py-md rounded-xl bg-surface border border-outline-variant focus:border-primary focus:ring-0 transition-all font-body-md placeholder:text-outline-variant resize-none" id="description" placeholder="Add more details..." rows="3"></textarea>
+</div>
+<!-- Priority Selector -->
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Priority</label>
+<div class="flex gap-md">
+<label class="flex-1 cursor-pointer">
+<input class="sr-only peer" name="priority" type="radio" value="low"/>
+<div class="w-full py-sm text-center rounded-xl border border-outline-variant peer-checked:bg-surface-container peer-checked:border-secondary transition-all font-label-md text-label-md text-on-surface-variant peer-checked:text-secondary">
+                                Low
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input checked="" class="sr-only peer" name="priority" type="radio" value="medium"/>
+<div class="w-full py-sm text-center rounded-xl border border-outline-variant peer-checked:bg-surface-container peer-checked:border-primary transition-all font-label-md text-label-md text-on-surface-variant peer-checked:text-primary">
+                                Medium
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="sr-only peer" name="priority" type="radio" value="high"/>
+<div class="w-full py-sm text-center rounded-xl border border-outline-variant peer-checked:bg-error-container peer-checked:border-error transition-all font-label-md text-label-md text-on-surface-variant peer-checked:text-error">
+                                High
+                            </div>
+</label>
+</div>
+</div>
+<!-- Two columns for Date and Category -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="due_date">Due Date</label>
+<div class="relative">
+<input class="w-full pl-md pr-xl py-md rounded-xl bg-surface border border-outline-variant focus:border-primary focus:ring-0 transition-all font-body-md" id="due_date" type="date"/>
+</div>
+</div>
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-1" for="category">Category</label>
+<select class="w-full px-md py-md rounded-xl bg-surface border border-outline-variant focus:border-primary focus:ring-0 transition-all font-body-md appearance-none" id="category">
+<option value="design">Design</option>
+<option value="research">Research</option>
+<option value="finance">Finance</option>
+<option value="personal">Personal</option>
+</select>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-md pt-lg">
+<button class="flex-1 bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-body-lg py-md rounded-xl transition-all active:scale-95 duration-200" type="submit">
+                        Create Task
+                    </button>
+<button class="flex-1 bg-transparent hover:bg-surface-container-low text-primary font-body-lg py-md rounded-xl transition-all active:scale-95 duration-200" onclick="toggleModal()" type="button">
+                        Cancel
+                    </button>
+</div>
+</form>
+</div>
+</div>
+<!-- BottomNavBar -->
+<!-- FAB for adding task (Trigger) -->
+<button class="fixed right-6 bottom-24 md:bottom-12 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform duration-200 z-30" onclick="toggleModal()">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</button>
+<script>
+        function toggleModal() {
+            const modal = document.getElementById('modalOverlay');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.children[0].classList.remove('translate-y-full');
+                    modal.children[0].classList.add('translate-y-0');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                modal.children[0].classList.add('translate-y-full');
+                modal.children[0].classList.remove('translate-y-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Initialize modal as visible for the prompt requirement
+        window.onload = () => {
+            // Keep modal visible to fulfill the prompt
+        };
+
+        // Close on backdrop click
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modalOverlay')) {
+                toggleModal();
+            }
+        });
+    </script>
+</body></html>
