@@ -1,15 +1,15 @@
 ---
-description: Enforce design standards from the design/ folder
+description: Enforce design standards from the .cursor/design/ folder
 globs: **/*.{tsx,ts,css,scss}
 alwaysApply: true
 ---
 
 # Design Standards
 
-Semua implementasi UI harus mengacu pada desain yang ada di folder `design/`.
+Semua implementasi UI harus mengacu pada desain yang ada di folder `.cursor/design/`.
 
 ## Pedoman Utama
-- **Tema Warna**: Gunakan palet warna **Productive Serenity** yang didefinisikan di `design/productive_serenity/DESIGN.md`.
+- **Tema Warna**: Gunakan palet warna **Productive Serenity** yang didefinisikan di `.cursor/design/productive_serenity/DESIGN.md`.
   - Primary: `#3B82F6`
   - Surface: `#F9FAFB`
   - On-Surface: `#111827`
@@ -21,8 +21,8 @@ Semua implementasi UI harus mengacu pada desain yang ada di folder `design/`.
   - Gunakan bayangan (shadow) yang lembut sesuai dengan level elevasi di desain.
 
 ## Referensi Desain
-- Lihat `design/productive_serenity/DESIGN.md` untuk spesifikasi teknis (warna, tipografi, spacing).
-- Lihat screenshot di folder `design/login/`, `design/register/`, `design/my_tasks_list/`, dan `design/my_tasks_kanban/` untuk referensi visual layout.
+- Lihat `.cursor/design/productive_serenity/DESIGN.md` untuk spesifikasi teknis (warna, tipografi, spacing).
+- Lihat screenshot di folder `.cursor/design/login/`, `.cursor/design/register/`, `.cursor/design/my_tasks_list/`, dan `.cursor/design/my_tasks_kanban/` untuk referensi visual layout.
 
 ## Implementasi Tailwind
 - Konfigurasikan `tailwind.config.js` agar mencerminkan nilai-nilai dari sistem desain ini.
