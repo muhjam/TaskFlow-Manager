@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '../../../utils/cn';
-import { ChevronDown, Calendar as CalendarIcon } from 'lucide-react';
+import { ChevronDown, Calendar as CalendarIcon, Eye, EyeOff } from 'lucide-react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -46,7 +46,11 @@ const ErrorMessage = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const Input = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ className, label, error, icon, leftIcon, containerClassName, ...props }, ref) => {
+  ({ className, label, error, icon, leftIcon, containerClassName, type, ...props }, ref) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const isPassword = type === 'password';
+    const inputType = isPassword && showPassword ? 'text' : type;
+
     return (
       <div className={cn("w-full", containerClassName)}>
         {label && <Label>{label}</Label>}
@@ -63,14 +67,30 @@ export const Input = React.forwardRef<HTMLInputElement, TextInputProps>(
           )}
           <input
             ref={ref}
+            type={inputType}
             className={cn(
               'w-full py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all text-body-md shadow-sm placeholder:text-on-surface-variant/30 text-on-surface',
-              (icon || leftIcon) ? 'pl-10 pr-3' : 'px-3',
+              (icon || leftIcon) ? 'pl-10' : 'pl-3',
+              isPassword ? 'pr-10' : 'pr-3',
               error && 'border-error focus:border-error focus:ring-error/5',
               className
             )}
             {...props}
           />
+          {isPassword && (
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 text-on-surface-variant/50 hover:text-primary transition-colors"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
+            </button>
+          )}
         </div>
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </div>
