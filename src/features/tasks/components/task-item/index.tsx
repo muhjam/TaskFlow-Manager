@@ -11,9 +11,10 @@ import { ConfirmModal } from '../../../../components/ui/confirm-modal';
 interface TaskItemProps {
   task: Task;
   isSortable?: boolean;
+  showGripHandle?: boolean;
 }
 
-export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable }) => {
+export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable, showGripHandle }) => {
   const { updateTask, deleteTask } = useTaskMutations();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   
@@ -48,6 +49,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable }) => {
   };
 
   const isDone = task.status === 'done';
+  const showGrip = isSortable || showGripHandle;
 
   if (isDragging) {
     return (
@@ -70,33 +72,36 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable }) => {
         !isSortable && "cursor-pointer"
       )}
     >
-      {isSortable && (
+      {showGrip && (
         <div 
-          {...attributes} 
-          {...listeners}
-          className="mt-1 cursor-grab active:cursor-grabbing text-outline-variant hover:text-primary transition-colors p-0.5"
+          {...(isSortable ? { ...attributes, ...listeners } : {})}
+          className={cn(
+            "mt-1 text-outline-variant p-0.5",
+            isSortable && "cursor-grab active:cursor-grabbing hover:text-primary transition-colors"
+          )}
         >
           <GripVertical className="h-4 w-4" />
         </div>
       )}
-
-      <div className="pt-1">
-        <button
-          onClick={handleToggleStatus}
-          className={cn(
-            "w-5 h-5 flex items-center justify-center rounded-full border-2 transition-all cursor-pointer bg-surface-container-lowest shadow-sm",
-            isDone ? "border-primary bg-primary text-white" : "border-outline-variant hover:border-primary text-primary"
-          )}
-        >
-          {task.status === 'done' ? (
-            <CheckCircle className="h-3.5 w-3.5" />
-          ) : task.status === 'in-progress' ? (
-            <Clock className="h-3.5 w-3.5 text-secondary fill-secondary/10" />
-          ) : (
-            <Circle className="h-3.5 w-3.5" />
-          )}
-        </button>
-      </div>
+      {!showGrip && (
+        <div className="pt-1">
+          <button
+            onClick={handleToggleStatus}
+            className={cn(
+              "w-5 h-5 flex items-center justify-center rounded-full border-2 transition-all cursor-pointer bg-surface-container-lowest shadow-sm",
+              isDone ? "border-primary bg-primary text-white" : "border-outline-variant hover:border-primary text-primary"
+            )}
+          >
+            {task.status === 'done' ? (
+              <CheckCircle className="h-3.5 w-3.5" />
+            ) : task.status === 'in-progress' ? (
+              <Clock className="h-3.5 w-3.5 text-secondary fill-secondary/10" />
+            ) : (
+              <Circle className="h-3.5 w-3.5" />
+            )}
+          </button>
+        </div>
+      )}
       
       <div className="flex-1 min-w-0">
         <span 

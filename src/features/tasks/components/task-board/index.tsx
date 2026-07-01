@@ -163,7 +163,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ tasks }) => {
           },
         }),
       }}>
-        {activeTask ? <TaskItem task={activeTask} /> : null}
+        {activeTask ? <TaskItem task={activeTask} showGripHandle /> : null}
       </DragOverlay>
     </DndContext>
   );
