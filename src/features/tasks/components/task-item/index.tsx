@@ -112,15 +112,6 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable, showGripHa
         >
           {task.title}
         </span>
-        
-        {task.dueDate && (
-          <div className="flex items-center gap-3 mt-1 text-[10px] font-medium text-on-surface-variant/70">
-            <div className="flex items-center gap-1">
-              <Calendar className="h-3 w-3" />
-              <span>{new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-            </div>
-          </div>
-        )}
 
         {task.description && (
           <p 
@@ -132,9 +123,19 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, isSortable, showGripHa
             {task.description}
           </p>
         )}
-        <div className="flex flex-wrap gap-ds-xs mt-ds-sm">
+        <div className="flex flex-wrap gap-ds-xs mt-ds-sm items-center">
           <Badge variant={task.priority} className="px-2 py-0.5 font-bold uppercase tracking-wider text-[9px] capitalize">{task.priority}</Badge>
           <Badge variant={task.status} className="px-2 py-0.5 font-bold uppercase tracking-wider text-[9px] capitalize">{task.status}</Badge>
+          {task.dueDate && (
+            <Badge variant="default" className="px-2 py-0.5 font-bold text-[9px] gap-1 capitalize">
+              <Calendar className="h-3 w-3" />
+              {new Date(task.dueDate).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </Badge>
+          )}
         </div>
       </div>
 
