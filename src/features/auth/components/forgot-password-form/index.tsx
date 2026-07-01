@@ -7,21 +7,13 @@ import { Input } from '../../../../components/ui/input';
 import { Button } from '../../../../components/ui/button';
 import { authService } from '../../services';
 
-const changePasswordSchema = z.object({
-  password: z.string().min(6, 'Password minimal 6 karakter'),
-  confirmPassword: z.string().min(6, 'Konfirmasi password minimal 6 karakter'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Password tidak cocok',
-  path: ['confirmPassword'],
+const forgotPasswordSchema = z.object({
+  email: z.string().email('Email tidak valid'),
 });
 
-type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-interface ChangePasswordFormProps {
-  email: string;
-}
-
-export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ email }) => {
+export const ForgotPasswordForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -30,18 +22,18 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ email })
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ChangePasswordFormValues>({
-    resolver: zodResolver(changePasswordSchema),
+  } = useForm<ForgotPasswordFormValues>({
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
-  const onSubmit = async (data: ChangePasswordFormValues) => {
+  const onSubmit = async (data: ForgotPasswordFormValues) => {
     setIsLoading(true);
     setError(null);
     try {
-      await authService.resetPassword(email, data.password);
-      navigate('/login', { state: { message: 'Password berhasil diubah. Silakan login.' } });
+      await authService.requestPasswordReset(data.email);
+      navigate(`/reset-password?email=${encodeURIComponent(data.email)}`);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Terjadi kesalahan saat mengubah password';
+      const message = err instanceof Error ? err.message : 'Terjadi kesalahan';
       setError(message);
     } finally {
       setIsLoading(false);
@@ -53,24 +45,24 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ email })
       <header className="text-center mb-ds-xl lg:hidden">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-ds-xl bg-primary-container text-on-primary-container mb-ds-md shadow-md">
           <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-            lock
+            lock_reset
           </span>
         </div>
         <h1 className="text-headline-md text-on-surface tracking-tight font-bold">
-          Change Password
+          Reset Password
         </h1>
         <p className="text-body-md text-on-surface-variant mt-1 font-medium">
-          Create a new password for <span className="text-primary font-bold">{email}</span>
+          We'll help you get back into your account.
         </p>
       </header>
 
       <div className="bg-surface-container-lowest rounded-ds-xl p-ds-lg shadow-level1 border border-outline-variant/30">
         <div className="hidden lg:block mb-ds-lg">
           <h1 className="text-headline-md text-on-surface tracking-tight font-bold">
-            Change Password
+            Reset Password
           </h1>
           <p className="text-body-md text-on-surface-variant mt-1 font-medium">
-            New password for <span className="text-primary font-bold">{email}</span>
+            Enter your email to continue.
           </p>
         </div>
 
@@ -81,26 +73,21 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ email })
             </div>
           )}
 
-          <Input
-            label="New Password"
-            type="password"
-            icon="lock"
-            placeholder="••••••••"
-            error={errors.password?.message}
-            {...register('password')}
-          />
+          <p className="text-body-md text-on-surface-variant leading-relaxed lg:hidden">
+            Enter your email address and we'll send you instructions to reset your password.
+          </p>
 
           <Input
-            label="Confirm Password"
-            type="password"
-            icon="lock_reset"
-            placeholder="••••••••"
-            error={errors.confirmPassword?.message}
-            {...register('confirmPassword')}
+            label="Email Address"
+            type="email"
+            icon="mail"
+            placeholder="name@company.com"
+            error={errors.email?.message}
+            {...register('email')}
           />
 
           <Button type="submit" className="w-full font-bold" size="lg" isLoading={isLoading}>
-            Update Password
+            Send Instructions
           </Button>
         </form>
       </div>

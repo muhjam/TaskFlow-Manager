@@ -27,18 +27,23 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center rounded-xl font-semibold transition-all active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-primary-container/30 disabled:pointer-events-none disabled:opacity-50',
+          'inline-flex items-center justify-center rounded-xl font-semibold transition-all active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-primary-container/30 disabled:pointer-events-none disabled:opacity-70',
           variants[variant],
           sizes[size],
+          isLoading && 'cursor-wait',
           className
         )}
-        disabled={isLoading}
+        disabled={isLoading || props.disabled}
         {...props}
       >
         {isLoading ? (
-          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-        ) : null}
-        {children}
+          <div
+            className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+            aria-hidden="true"
+          />
+        ) : (
+          children
+        )}
       </button>
     );
   }

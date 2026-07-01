@@ -50,7 +50,7 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <main className="w-full max-w-[420px] animate-fade-in">
-      <header className="text-center mb-ds-xl">
+      <header className="text-center mb-ds-xl lg:hidden">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-ds-xl bg-primary-container text-on-primary-container mb-ds-md shadow-md">
           <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>
             check_circle
@@ -65,6 +65,15 @@ export const RegisterForm: React.FC = () => {
       </header>
 
       <div className="bg-surface-container-lowest rounded-ds-xl p-ds-lg shadow-level1 border border-outline-variant/30">
+        <div className="hidden lg:block mb-ds-lg">
+          <h1 className="text-headline-md text-on-surface tracking-tight font-bold">
+            Create Account
+          </h1>
+          <p className="text-body-md text-on-surface-variant mt-1 font-medium">
+            Fill in your details to get started.
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-ds-lg">
           {error && (
             <div className="rounded-ds-md bg-error/10 p-3 text-xs text-error font-bold">
@@ -123,9 +132,8 @@ export const RegisterForm: React.FC = () => {
         </p>
       </footer>
 
-      {/* Visual Atmospheric Elements */}
-      <div className="fixed top-[-10%] right-[-10%] w-[400px] h-[400px] bg-primary-container/10 rounded-full blur-[80px] -z-10"></div>
-      <div className="fixed bottom-[-10%] left-[-10%] w-[300px] h-[300px] bg-secondary-container/10 rounded-full blur-[80px] -z-10"></div>
+      <div className="lg:hidden fixed top-[-10%] right-[-10%] w-[400px] h-[400px] bg-primary-container/10 rounded-full blur-[80px] -z-10" />
+      <div className="lg:hidden fixed bottom-[-10%] left-[-10%] w-[300px] h-[300px] bg-secondary-container/10 rounded-full blur-[80px] -z-10" />
     </main>
   );
 };

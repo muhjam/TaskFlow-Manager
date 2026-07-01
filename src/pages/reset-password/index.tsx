@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import { AuthSplitLayout } from '../../features/auth/components/auth-split-layout';
 import { ChangePasswordForm } from '../../features/auth/components/change-password-form';
 
 export const ResetPasswordPage: React.FC = () => {
@@ -11,8 +12,11 @@ export const ResetPasswordPage: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-surface p-ds-container">
+    <AuthSplitLayout
+      headline="Create a new secure password."
+      description="Choose a strong password to keep your account safe and get back to your tasks quickly."
+    >
       <ChangePasswordForm email={email} />
-    </div>
+    </AuthSplitLayout>
   );
 };

@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useAuthStore } from '../../features/auth/store';
 import { useThemeStore } from '../../hooks/use-theme-store';
 import { useTasks, useTaskMutations } from '../../features/tasks/hooks/use-tasks';
+import { useViewModeUrl } from '../../features/tasks/hooks/use-view-mode-url';
 import { useTaskStore } from '../../features/tasks/store';
 import { TaskList } from '../../features/tasks/components/task-list';
 import { TaskBoard } from '../../features/tasks/components/task-board';
+import { TaskListSkeleton } from '../../features/tasks/components/task-list-skeleton';
+import { TaskBoardSkeleton } from '../../features/tasks/components/task-board-skeleton';
 import { Button } from '../../components/ui/button';
+import { Skeleton } from '../../components/ui/skeleton';
 import { Input, Select, TextArea, DatePicker, ButtonSelect } from '../../components/ui/input';
 import { LogOut, Plus, Search, List as ListIcon, LayoutGrid, CheckCircle, Moon, Sun } from 'lucide-react';
 import { Modal } from '../../components/ui/modal';
@@ -19,7 +23,8 @@ export const DashboardPage: React.FC = () => {
   const { data: tasks = [], isLoading } = useTasks();
   const { createTask } = useTaskMutations();
   
-  const { search, setSearch, viewMode, setViewMode, status, setStatus } = useTaskStore();
+  const { viewMode, setViewMode } = useViewModeUrl();
+  const { search, setSearch, status, setStatus } = useTaskStore();
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDesc, setNewTaskDesc] = useState('');
   const [newTaskPriority, setNewTaskPriority] = useState<'low' | 'medium' | 'high'>('medium');
@@ -126,14 +131,18 @@ export const DashboardPage: React.FC = () => {
           <div>
             <h2 className="text-display-lg text-on-surface mb-ds-xs">My Tasks</h2>
             <p className="text-body-md text-on-surface-variant font-medium">
-              You have {tasks.filter(t => t.status !== 'done').length} tasks remaining.
+              {isLoading ? (
+                <Skeleton className="h-4 w-52" />
+              ) : (
+                <>You have {tasks.filter(t => t.status !== 'done').length} tasks remaining.</>
+              )}
             </p>
           </div>
           
           {/* View Selector Tabs */}
           <Tabs 
             value={viewMode}
-            onChange={(val) => setViewMode(val as any)}
+            onChange={(val) => setViewMode(val as 'list' | 'kanban')}
             options={[
               { label: 'List', value: 'list', icon: <ListIcon className="h-4 w-4" /> },
               { label: 'Kanban', value: 'kanban', icon: <LayoutGrid className="h-4 w-4" /> },
@@ -168,9 +177,7 @@ export const DashboardPage: React.FC = () => {
 
         {/* Main Content Area */}
         {isLoading ? (
-          <div className="flex items-center justify-center py-24">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-          </div>
+          viewMode === 'list' ? <TaskListSkeleton /> : <TaskBoardSkeleton />
         ) : (
           <div className="animate-fade-in">
             {viewMode === 'list' ? (
